@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <ol>
+    {% for item in users %}
+    <li style="margin-bottom: 40px;">
+      {# checking for even ids #}
+      <ul>
+        <li>
+          {% if item.id % 2 === 0 %}
+          <div>
+            <span>
+              name: {{ item.name }}
+            </span>
+            <span>
+              username: {{ item.username }}
+            </span>
+            <span>
+              email: {{ item.email }}
+            </span>
+          </div>
+          {% else %}
+          <p>
+            i am odd
+          </p>
+          {% endif %}
+          {# end checking for even ids #}
+        </li>
+
+
+        <li>
+
+          <address>
+            <span>
+              street: {{ item.address.street }}
+            </span>
+            <span>
+              suite: {{ item.address.suite }}
+            </span>
+            <span>
+              city: {{ item.address.city }}
+            </span>
+            <span>
+              zipcode: {{ item.address.zipcode }}
+            </span>
+            <span>
+              geo: {{ item.address.geo.lat }} {{ item.address.geo.lng }}
+            </span>
+          </address>
+        </li>
+
+
+
+        {# checking for email ends with .biz #}
+        {% if item.email.endsWith('.biz') %}
+        <li>
+          <p>
+            name: {{ item.name }} email: {{ item.email }}
+          </p>
+        </li>
+        {% endif %}
+        {# end checking for email ends with .biz #}
+
+
+
+        {# checking for city names includes specific city #}
+        {% set allowedCities = ["Aliyaview", "Howemouth", 'Gwenborough'] %}
+
+        {% if allowedCities.includes(item.address.city) %}
+        <li>
+          <p>
+            The Zipcode and Geo of cityname {{ item.address.city }} is: {{ item.address.zipcode }} and geo is {{
+            item.address.geo.lat }},
+            {{ item.address.geo.lng }}.
+          </p>
+        </li>
+        {% endif %}
+        {# end checking for city names includes specific city #}
+
+        <!-- print catchphrase which will contains max 15 characters  -->
+
+        {# checking for catchphrase length #}
+        {% if item.company.catchPhrase.length <= 15 %}
+        <li>
+          <p>
+            helllo {{ item.company.catchPhrase }}
+          </p>
+        </li>
+        {% endif %}
+
+      </ul>
+    </li>
+
+    {% endfor %}
+  </ol>
+</body>
+
+</html>
